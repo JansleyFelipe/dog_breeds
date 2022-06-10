@@ -1,0 +1,6 @@
+name: Dog Breeds
+type: module
+description: 'Adds Dog Breeds content type.'
+core_version_requirement: ^9
+dependencies:
+  - node

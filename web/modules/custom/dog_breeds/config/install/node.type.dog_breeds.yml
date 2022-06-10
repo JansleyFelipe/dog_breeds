@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - dog_breeds
+name: 'Dog Breeds'
+type: dog_breeds
+description: 'Content type that can be used to add <em>Dog breed information</em> page.'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: true

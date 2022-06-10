@@ -1,0 +1,65 @@
+<?php
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+
+const FIELD_SLUG_MACHINE_NAME = 'field_slug';
+const DOG_API_URL = 'https://dog.ceo/api/breed/';
+const DOG_API_RANDOM_IMAGE_PATH = '/images/random';
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function dog_breeds_views_pre_render(\Drupal\views\ViewExecutable $view) {
+  if ($view->id() == 'dog_breeds_list_test_1') {
+    // echo '<pre>'; var_dump($view->result); echo '</pre>';
+    foreach ($view->result as $value) {
+      $fieldSlugValue = $value->_entity->get(FIELD_SLUG_MACHINE_NAME)->value;
+      $urlImage = get_url_image_from_dog_api($fieldSlugValue);
+
+      // Set image field URL value.
+      // $value->_entity->add('field_image', $urlImage);
+    }
+  }
+}
+
+/**
+ * Prepare the url to access the dog api service to get a dog breed's random image.
+ */
+function prepare_url_to_dog_api($fieldSlugValue) : string {
+  $url_formatted = DOG_API_URL . $fieldSlugValue . DOG_API_RANDOM_IMAGE_PATH;
+
+  return $url_formatted;
+}
+
+/**
+ * Get the url image.
+ */
+function get_url_image_from_dog_api($fieldSlugValue) : string {
+  $urlFormatted = prepare_url_to_dog_api($fieldSlugValue);
+
+  $urlImage = doGetRequestToDogApi($urlFormatted);
+
+  return $urlImage;
+}
+
+/**
+ * Do the get request to the dog api service.
+ */
+function doGetRequestToDogApi($url) {
+  $client = new Client();
+  
+  try {
+    $response = $client->get($url);
+    $result = json_decode($response->getBody(), TRUE);
+
+    if($result['status'] != 'success') {
+      return;
+    }
+
+    return $result['message'];
+  }
+  catch (RequestException $exception) {
+    // log exception
+    echo '<pre>'; var_dump($exception); echo '</pre>';
+  }
+}
