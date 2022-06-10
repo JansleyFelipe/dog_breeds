@@ -11,7 +11,7 @@ const DOG_API_RANDOM_IMAGE_PATH = '/images/random';
  */
 function dog_breeds_views_pre_render(\Drupal\views\ViewExecutable $view) {
   if ($view->id() == 'dog_breeds_list_test_1') {
-    // echo '<pre>'; var_dump($view->result); echo '</pre>';
+    echo '<pre>'; var_dump($view->result); echo '</pre>';
     foreach ($view->result as $value) {
       $fieldSlugValue = $value->_entity->get(FIELD_SLUG_MACHINE_NAME)->value;
       $urlImage = get_url_image_from_dog_api($fieldSlugValue);

@@ -1,0 +1,17 @@
+uuid: 9dd7331e-a909-48dd-b769-101d294c3b5f
+langcode: en
+status: true
+dependencies: {  }
+id: load_image_from_slug
+label: 'Load image from slug'
+token: false
+context:
+  show_warning: true
+  group:
+    language: false
+  fallback:
+    language: ''
+menu:
+  path: /admin/load_image_from_slug
+  weight: 0
+  description: 'Load image from slug'

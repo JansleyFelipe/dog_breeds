@@ -8,3 +8,6 @@
   * Once you have installed lando and downloaded the project run the command below.
   * cd `<PROJECT>`
   * `lando start`
+
+1. Once started:
+  * Run `lando composer install`
