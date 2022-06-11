@@ -2,7 +2,7 @@
 ## LOCAL SETUP
 ### Requirements
 1. GIT, DOCKER, DOCKER-COMPOSE, COMPOSER and LANDO
-   * There's script to install lando in this path `<PROJECT>/scripts/lando-installer.sh`
+   * There's a script to install lando in this path `<PROJECT>/scripts/lando-installer.sh`
 
 ### GET STARTED
 1. Start the lando server:
@@ -18,5 +18,5 @@
   * To export you can run `lando drush sqlc <  ~/path/to/db-file.sql`
   * Admin user credentials: username: admin and password: admin
 
-3. Or create a new database and import the configs:
+3. [Optional]Or create a new database and import the configs:
   * If you choose this option run `lando config:import`
