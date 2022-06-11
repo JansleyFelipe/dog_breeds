@@ -1,7 +1,9 @@
 <?php
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
+const DOG_BREEDS_LIST_VIEW_ID = 'dog_breeds_list_test_1';
 const FIELD_SLUG_MACHINE_NAME = 'field_slug';
 const DOG_API_URL = 'https://dog.ceo/api/breed/';
 const DOG_API_RANDOM_IMAGE_PATH = '/images/random';
@@ -10,22 +12,24 @@ const DOG_API_RANDOM_IMAGE_PATH = '/images/random';
  * Implements hook_views_pre_render().
  */
 function dog_breeds_views_pre_render(\Drupal\views\ViewExecutable $view) {
-  if ($view->id() == 'dog_breeds_list_test_1') {
-    echo '<pre>'; var_dump($view->result); echo '</pre>';
-    foreach ($view->result as $value) {
-      $fieldSlugValue = $value->_entity->get(FIELD_SLUG_MACHINE_NAME)->value;
-      $urlImage = get_url_image_from_dog_api($fieldSlugValue);
+  if ($view->id() != DOG_BREEDS_LIST_VIEW_ID) {
+    return;
+  }
 
-      // Set image field URL value.
-      // $value->_entity->add('field_image', $urlImage);
-    }
+  // Loop to interact with the dog breeds list view.
+  foreach ($view->result as $value) {
+    $fieldSlugValue = $value->_entity->get(FIELD_SLUG_MACHINE_NAME)->value;
+    $urlImage = getUrlImageFromDogApi($fieldSlugValue);
+
+    // Set image field URL value.
+    // $value->_entity->set('field_image', $urlImage);
   }
 }
 
 /**
  * Prepare the url to access the dog api service to get a dog breed's random image.
  */
-function prepare_url_to_dog_api($fieldSlugValue) : string {
+function prepareUrlToDogApi($fieldSlugValue) : string {
   $url_formatted = DOG_API_URL . $fieldSlugValue . DOG_API_RANDOM_IMAGE_PATH;
 
   return $url_formatted;
@@ -34,10 +38,10 @@ function prepare_url_to_dog_api($fieldSlugValue) : string {
 /**
  * Get the url image.
  */
-function get_url_image_from_dog_api($fieldSlugValue) : string {
-  $urlFormatted = prepare_url_to_dog_api($fieldSlugValue);
+function getUrlImageFromDogApi($fieldSlugValue) : string {
+  $urlFormatted = prepareUrlToDogApi($fieldSlugValue);
 
-  $urlImage = doGetRequestToDogApi($urlFormatted);
+  $urlImage = getRequestToDogApi($urlFormatted);
 
   return $urlImage;
 }
@@ -45,7 +49,7 @@ function get_url_image_from_dog_api($fieldSlugValue) : string {
 /**
  * Do the get request to the dog api service.
  */
-function doGetRequestToDogApi($url) {
+function getRequestToDogApi($url) {
   $client = new Client();
   
   try {
