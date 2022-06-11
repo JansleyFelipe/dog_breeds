@@ -2,6 +2,7 @@
 ## LOCAL SETUP
 ### Requirements
 1. GIT, DOCKER, DOCKER-COMPOSE, COMPOSER and LANDO
+   * There's script to install lando in this path `<PROJECT>/scripts/lando-installer.sh`
 
 ### GET STARTED
 1. Start the lando server:
