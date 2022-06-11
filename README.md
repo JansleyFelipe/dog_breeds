@@ -11,3 +11,11 @@
 
 1. Once started:
   * Run `lando composer install`
+
+2. [Recommended] Export the database or create a new one:
+  * There's a dump file in 'dump-db' folder
+  * To export you can run 'lando drush sqlc <  ~/path/to/db-file.sql'
+  * Admin user credentials: username: admin and password: admin
+
+3. Or create a new database and import the configs:
+  * If you choose this option run 'lando config:import'
